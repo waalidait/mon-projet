@@ -1,11 +1,6 @@
- let age = 18;
-
- if(age < 18){
-    console.log("tu es mineur");
- }
- else if(age === 18){
-    console.log("Vous venez d’atteindre la majorité !");
- }
- else{
-   console.log("tu es majeur");
+ for(let i =1 ;i <= 10;i++){
+   if (i === 5){
+    continue;
+   }
+   console.log("Nomber =" + i);
  }
