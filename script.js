@@ -1,5 +1,11 @@
- function addition(a,b){
-    return a + b;
+ let age = 18;
+
+ if(age < 18){
+    console.log("tu es mineur");
  }
- let somme = addition(8,5);
- console.log("la somme est =",+ somme);
+ else if(age === 18){
+    console.log("Vous venez d’atteindre la majorité !");
+ }
+ else{
+   console.log("tu es majeur");
+ }
