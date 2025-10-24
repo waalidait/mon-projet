@@ -1,35 +1,52 @@
 let input = document.getElementById("new-task");
 let bouton = document.getElementById("add-task");
 let p = document.getElementById("task-list");
+ 
+let savedTasks = JSON.parse(localStorage.getItem("task")) || [];
+savedTasks.forEach(task => showTask(task));
 
+   
 bouton.addEventListener("click",function(){
-    let newtach = input.value;
+   let newtach = input.value;
+   if(newtach !== ""){
+      showTask(newtach);
 
-     if(newtach !==""){     
-        let newline = document.createElement("p");
+      savedTasks.push(newtach);
+      localStorage.setItem("task",JSON.stringify(savedTasks));
 
-        newline.innerText = newtach;
+      input.value="";
 
-        let checkbox = document.createElement("input");
-        checkbox.type ="checkbox";
-        
-        newline.appendChild(checkbox);
-       
+   }
+});
 
-        let supprimer = document.createElement("button");
-        supprimer.style.marginLeft = '200px';
-        supprimer.style.background = 'red';
-        
-        supprimer.innerText="suprimmer";
+function showTask(tasktext){
+   let newline = document.createElement("p");
+   newline.innerText = tasktext;
 
-        supprimer.addEventListener("click",function(){
-         newline.remove();
-        })
-        newline.appendChild(supprimer);
-        
-        p.prepend(newline);
+   let checkbox = document.createElement("input");
+   checkbox.type = "checkbox";
+   checkbox.addEventListener("change",function(){
+      if(checkbox.checked){
+         newline.classList.add("checked-task")
+      }
+      else{
+         newline.classList.remove("checked-task");
+      }
+   });
+    
+   newline.appendChild(checkbox)
 
-        input.value = "";
-     }
+   let suprimer = document.createElement("button");
+   suprimer.innerText="suprimer"
+   suprimer.style.marginLeft="200px";
+   suprimer.style.background="red";
 
-})
+   suprimer.addEventListener("click",function(){
+      newline.remove();
+
+      savedTasks =savedTasks.filter(t => t !== tasktext);
+      localStorage.setItem("task",JSON.stringify(savedTasks))
+   })
+   newline.appendChild(suprimer);
+   p.prepend(newline);
+}
